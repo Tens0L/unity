@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 
 // this is git hub test 2023 10- 15
-//
+//   thank you! hello from iphone
 
 public class player1 : MonoBehaviour
 {
