@@ -42,14 +42,6 @@ public class GameManager : MonoBehaviour
     {
         var value = context.ReadValue<float>();
 
-        //前にクリックしたオブジェクトの情報をリセットする
-            //if (clicked_gob is not null)
-            //{
-            //    if (clicked_gob.GetComponent<player1>() is not null)
-            //    {
-            //        clicked_gob.GetComponent<player1>().visible_field_panel(false);
-            //    }
-            //}
 
         //前にクリックしたオブジェクトを空にしておく
         clicked_gob = null;
@@ -61,12 +53,21 @@ public class GameManager : MonoBehaviour
         {
             clicked_gob = hit.collider.gameObject;
         }
+        
 
-        //player1のパネルを表示する
+        //ここには何をクリックしたかだけを呼び出すようにしたい
+
+        //player1をくりっくした　ことだけ伝えたい
         if(clicked_gob.GetComponent<player1>() is not null)
         {
-            clicked_gob.GetComponent<player1>().visible_field_panel(true);
+            clicked_gob.GetComponent<player1>().ivent_reactor();
+        }
 
+
+        //can move areaでクリックした場所に移動する
+        if (clicked_gob.name == "can_move_area")
+        {
+            clicked_gob.GetComponent<Can_move_area>().ivent_reactor();
         }
 
 
