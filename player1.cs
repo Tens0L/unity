@@ -21,7 +21,7 @@ public class player1 : MonoBehaviour
     public void ivent_reactor()
     {
         if (my_state == "stanby") { visible_field_panel(true); }
-        if (my_state == "move") { go_to_spot(); }
+        if (my_state == "move_set") { go_to_spot(); }
 
     }
 
@@ -40,15 +40,29 @@ public class player1 : MonoBehaviour
         //動けるエリアに相当するGameobjectを表示・非表示する
         can_move_area.SetActive(t_or_f);
 
-        //move状態にする
-        my_state = "move";
+        //move_set状態にする
+        my_state = "move_set";
 
     }
 
     //移動したい
     private void go_to_spot()
     {
-        transform.Translate(new Vector3(1f, 1f, 1f));
+
+        Debug.Log("go to ");
+
+        //transform.Translate(new Vector3(1f, 1f, 1f));
+        var myAgent = GetComponent<NavMeshAgent>();
+        myAgent.SetDestination( new Vector3(1,1,1));
+
+        //mystateをstandbyにする
+        my_state = "stanby";
+
+        //動けるエリアを非表示にする
+        can_move_area.SetActive(false);
+
+        //パネルを非表示にする
+        field_panel.SetActive(false);
 
 
 
