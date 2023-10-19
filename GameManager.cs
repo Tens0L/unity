@@ -53,6 +53,13 @@ public class GameManager : MonoBehaviour
         {
             clicked_gob = hit.collider.gameObject;
         }
+        else
+        {
+            Debug.Log("nothing");
+            return;
+        }
+
+        Debug.Log(hit.point);
         
 
         //ここには何をクリックしたかだけを呼び出すようにしたい
@@ -64,11 +71,12 @@ public class GameManager : MonoBehaviour
         }
 
 
-        //can move areaでクリックした場所に移動する
+        //can move areaをクリックしたことだけ伝える
         if (clicked_gob.name == "can_move_area")
         {
-            clicked_gob.GetComponent<Can_move_area>().ivent_reactor();
+            clicked_gob.GetComponent<Can_move_area>().ivent_reactor(hit.point);
         }
+
 
 
 
