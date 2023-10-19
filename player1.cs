@@ -12,6 +12,7 @@ public class player1 : MonoBehaviour
 {
     [SerializeField] GameObject field_panel;
     [SerializeField] GameObject can_move_area;
+    [SerializeField] GameObject can_act_area;
 
     private string my_state;
     private void Start()
@@ -22,6 +23,7 @@ public class player1 : MonoBehaviour
     {
         if (my_state == "stanby") { visible_field_panel(true); }
         if (my_state == "move_set") { go_to_spot(); }
+        if (my_state == "action") { action_for_spot(); }
 
     }
 
@@ -35,7 +37,7 @@ public class player1 : MonoBehaviour
     }
 
     //可動範囲を表示したい
-    private void visible_can_move_area(bool t_or_f)
+    public void visible_can_move_area(bool t_or_f)
     {
         //動けるエリアに相当するGameobjectを表示・非表示する
         can_move_area.SetActive(t_or_f);
@@ -64,14 +66,28 @@ public class player1 : MonoBehaviour
         //パネルを非表示にする
         field_panel.SetActive(false);
 
+    }
+
+    //攻撃範囲を表示したい
+    public void visible_can_act_area(bool t_or_f)
+    {
+        //攻撃エリアを表示する
+        can_act_area.SetActive(true);
+        //
+        my_state = "action";
 
 
+    }
+    private void action_for_spot()
+    {
+
+        Debug.Log("ATACK!!");
 
     }
 
 
 
 
-    
+
 
 }
