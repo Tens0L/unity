@@ -13,6 +13,7 @@ public class player1 : MonoBehaviour
     [SerializeField] GameObject field_panel;
     [SerializeField] GameObject can_move_area;
     [SerializeField] GameObject can_act_area;
+    [SerializeField] GameObject field;
 
     private string my_state;
     private void Start()
@@ -51,10 +52,11 @@ public class player1 : MonoBehaviour
     private void go_to_spot()
     {
 
-        
-        //transform.Translate(new Vector3(1f, 1f, 1f));
+        //agentを宣言しておく
         var myAgent = GetComponent<NavMeshAgent>();
+        //移動する
         myAgent.SetDestination(can_move_area.GetComponent<Can_move_area>().spot_pos);
+        //移動可能エリアを初期化してもらう
         can_move_area.GetComponent<Can_move_area>().init();
 
         //mystateをstandbyにする
@@ -66,6 +68,9 @@ public class player1 : MonoBehaviour
         //パネルを非表示にする
         field_panel.SetActive(false);
 
+
+        //navMeshを焼きなおし
+        field.GetComponent<NavMeshBuildSource>();
     }
 
     //攻撃範囲を表示したい
@@ -78,10 +83,24 @@ public class player1 : MonoBehaviour
 
 
     }
+    //actしたい
     private void action_for_spot()
     {
 
         Debug.Log("ATACK!!");
+        //actionする
+        var myAgent = GetComponent<NavMeshAgent>();
+        var tmp_v3 = transform.position;
+        myAgent.speed = 10f;
+        myAgent.SetDestination(can_act_area.GetComponent<Can_act_area>().spot_pos);
+        //myAgent.SetDestination(tmp_v3);
+
+
+        //action範囲を非表示にする
+        can_act_area.SetActive(false);
+        //パネルを非表示する
+        field_panel.SetActive(false);
+
 
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Can_move_area : MonoBehaviour
+public class Can_act_area : MonoBehaviour
 {
 
     [SerializeField]  GameObject spot_pref;
