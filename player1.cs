@@ -11,10 +11,10 @@ using UnityEngine.AI;
 public class player1 : MonoBehaviour
 {
     [SerializeField] GameObject field_panel;
+    [SerializeField] GameObject ok_cancel_panel;
     [SerializeField] GameObject can_move_area;
     [SerializeField] GameObject can_act_area;
-    [SerializeField] GameObject field;
-
+    public int char_id;
     private string my_state;
     private void Start()
     {
@@ -23,8 +23,18 @@ public class player1 : MonoBehaviour
     public void ivent_reactor()
     {
         if (my_state == "stanby") { visible_field_panel(true); }
-        if (my_state == "move_set") { go_to_spot(); }
+        if (my_state == "move_set") { ok_cancel_panel.SetActive(true); }//go_to_spot(); }
         if (my_state == "action") { action_for_spot(); }
+
+    }
+
+    public void ok_cancel_reactor(bool t_or_f)
+    {
+        //can move area のspot置いた状態で ok/cancel を選択
+        go_to_spot(t_or_f);
+
+
+
 
     }
 
@@ -46,31 +56,41 @@ public class player1 : MonoBehaviour
         //move_set状態にする
         my_state = "move_set";
 
+        //メニューは非表示にする
+        field_panel.SetActive(false);
+
     }
 
     //移動したい
-    private void go_to_spot()
+    private void go_to_spot(bool t_or_f)
     {
+        if (t_or_f)
+        {
+            //agentを宣言しておく
+            var myAgent = GetComponent<NavMeshAgent>();
+            //移動する
+            myAgent.SetDestination(can_move_area.GetComponent<Can_move_area>().spot_pos);
+            //移動可能エリアを初期化してもらう
+            can_move_area.GetComponent<Can_move_area>().init();
 
-        //agentを宣言しておく
-        var myAgent = GetComponent<NavMeshAgent>();
-        //移動する
-        myAgent.SetDestination(can_move_area.GetComponent<Can_move_area>().spot_pos);
-        //移動可能エリアを初期化してもらう
-        can_move_area.GetComponent<Can_move_area>().init();
+            //mystateをstandbyにする
+            my_state = "stanby";
 
-        //mystateをstandbyにする
-        my_state = "stanby";
+            //動けるエリアを非表示にする
+            can_move_area.SetActive(false);
 
-        //動けるエリアを非表示にする
-        can_move_area.SetActive(false);
+            //パネルを非表示にする
+            field_panel.SetActive(false);
+            ok_cancel_panel.SetActive(false);
+        }
+        else{
+            Debug.Log("goto is cancel");
+            field_panel.SetActive(true);
+            ok_cancel_panel.SetActive(false);
+        }
 
-        //パネルを非表示にする
-        field_panel.SetActive(false);
-
-
-        //navMeshを焼きなおし
-        field.GetComponent<NavMeshBuildSource>();
+        //navMeshを焼きなおししたいがこれだとエラー
+        //field.GetComponent<NavMeshBuildSource>();
     }
 
     //攻撃範囲を表示したい
@@ -96,6 +116,8 @@ public class player1 : MonoBehaviour
         //myAgent.SetDestination(tmp_v3);
 
 
+        //mystateをstandbyにする
+        my_state = "stanby";
         //action範囲を非表示にする
         can_act_area.SetActive(false);
         //パネルを非表示する

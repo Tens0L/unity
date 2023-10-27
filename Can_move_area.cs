@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//移動可能エリアでの動きをここにまとめたい
+// 移動可能エリアでの動きをここにまとめたい
 //
 //
+
 public class Can_move_area : MonoBehaviour
 {
+    //player1本体
+    [SerializeField] GameObject player1;
     //移動先のマーカーオブジェクト
     [SerializeField]  GameObject spot_pref;
     //移動先となるマーカーのポジションを保持する
     public Vector3 spot_pos;
+
 
     //クリックされたときの動きだけ定義しておく
     public void ivent_reactor(Vector3 spot_v3)
@@ -21,6 +25,10 @@ public class Can_move_area : MonoBehaviour
         spot_pref.SetActive(true);
         //spotの場所を記録しておく。移動時に使用する。
         spot_pos = spot_v3;
+
+        //playerのイベントリアクターを呼び出す.ここではok/cancelPanelを起こす
+        player1.GetComponent<player1>().ivent_reactor();
+
 
     }
 
