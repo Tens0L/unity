@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //ここではターンテーブルに表示するキャラクターの絵を管理します
 //キャラクターidを受け取ったらそれに対応したspriteを表示します
 //対応関係はデータベースみたいなオブジェクトを走らせてそこに問い合わせる予定
-//
+//：結局キャラクターにスプライト持たせたので直接いく
 public class Turn_table : MonoBehaviour
 {
     [SerializeField] GameObject table1;
@@ -40,6 +40,8 @@ public class Turn_table : MonoBehaviour
             int tmp_id = gobs[ii].GetComponent<player1>().char_id;
 
             //change_image(ii, tmp_id);
+            tables[ii].GetComponent<Image>().sprite = gobs[ii].GetComponent<Image>().sprite;
+
         }
 
 
@@ -63,6 +65,13 @@ public class Turn_table : MonoBehaviour
     //next turn button からcallする
     public void next_turn()
     {
+        var gob_tmp = gobs[0];
+        gobs[0] = gobs[1];
+        gobs[1] = gobs[2];
+        gobs[2] = gobs[3];
+        gobs[3] = gob_tmp;
+
+        create_turn_table();
         //
         //change_image(1, 2);
         //change_image(2, 3);
