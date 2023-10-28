@@ -10,10 +10,14 @@ using UnityEngine.UI;
 //：結局キャラクターにスプライト持たせたので直接いく
 public class Turn_table : MonoBehaviour
 {
+    //手作業でテーブルのパネルとる
     [SerializeField] GameObject table1;
     [SerializeField] GameObject table2;
     [SerializeField] GameObject table3;
     [SerializeField] GameObject table4;
+
+    //
+    [SerializeField] GameObject main_camera_root;
 
     private GameObject[] tables;
     private GameObject[] gobs;
@@ -43,8 +47,8 @@ public class Turn_table : MonoBehaviour
             tables[ii].GetComponent<Image>().sprite = gobs[ii].GetComponent<Image>().sprite;
 
         }
-
-
+        //gobs[0].transform
+        main_camera_root.transform.position = gobs[0].transform.position;
 
     }
 
@@ -72,11 +76,7 @@ public class Turn_table : MonoBehaviour
         gobs[3] = gob_tmp;
 
         create_turn_table();
-        //
-        //change_image(1, 2);
-        //change_image(2, 3);
-        //change_image(3, 4);
-        //change_image(4, 1);
+
     }
 
 
