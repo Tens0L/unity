@@ -47,6 +47,14 @@ public class player1 : MonoBehaviour
         my_state = "stanby";
 
     }
+    // status panel
+    //
+    //
+    private void refresh_display_player_status()
+    {
+        Debug.Log(Char_dict.cdict[char_id]._name);
+        status_panel.GetComponent<Status_display>().update_display(Char_dict.cdict[char_id]);
+    }
 
     public void ivent_reactor()
     {
@@ -67,14 +75,7 @@ public class player1 : MonoBehaviour
 
     }
 
-    // status panel
-    //
-    //
-    private void refresh_display_player_status()
-    {
-        Debug.Log(Char_dict.cdict[char_id]._name);
-        status_panel.GetComponent<Status_display>().update_display(Char_dict.cdict[char_id]);
-    }
+    
 
 
     public void ok_cancel_reactor(bool t_or_f)
