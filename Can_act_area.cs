@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Can_act_area : MonoBehaviour
 {
+    //player1本体
+    [SerializeField] GameObject player1;
+    //Action先のマーカーオブジェクト
 
-    [SerializeField]  GameObject spot_pref;
+    [SerializeField]   GameObject spot_pref;
+
     public Vector3 spot_pos;
 
     public void ivent_reactor(Vector3 spot_v3)
@@ -20,6 +24,9 @@ public class Can_act_area : MonoBehaviour
         //spotの場所を記録しておく。移動時に使用する。
         spot_pos = spot_v3;
 
+
+        //playerのイベントリアクターを呼び出す.ここではok/cancelPanelを起こす
+        player1.GetComponent<player1>().ivent_reactor();
     }
 
     public void init()
